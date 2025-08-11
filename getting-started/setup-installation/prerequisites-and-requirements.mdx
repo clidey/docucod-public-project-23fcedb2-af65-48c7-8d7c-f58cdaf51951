@@ -1,0 +1,202 @@
+---
+title: "Prerequisites & System Requirements"
+description: "Understand what you need before installing Open Lovable, including supported operating systems, Node.js/NPM requirements, and crucial API keys. Preempt common issues by preparing your environment the right way."
+---
+
+# Prerequisites & System Requirements for Open Lovable
+
+Welcome to your first step in harnessing the power of Open Lovable! Before diving into the installation and usage, this guide ensures your environment is perfectly set up to avoid any roadblocks. You will learn what operating systems are supported, the essential versions of Node.js and npm required, and the critical API keys needed to unlock the full potential of Open Lovable.
+
+---
+
+## 1. Supported Operating Systems
+
+Open Lovable is designed with flexibility in mind and supports the following environments:
+
+- **Windows 10 and later**
+- **macOS 10.15 (Catalina) and later**
+- **Linux distributions** (Ubuntu 18.04+, Debian 10+, Fedora 32+)
+
+> Make sure your system is updated to meet these minimum operating system versions to ensure compatibility.
+
+
+## 2. Node.js and npm Versions
+
+To run Open Lovable smoothly, you need to have Node.js and npm installed with specific version requirements:
+
+| Component | Minimum Version |
+| --------- | --------------- |
+| Node.js   | 18.x or later   |
+| npm       | 8.x or later    |
+
+
+### How to Check Your Versions
+
+Open your terminal or command prompt and run:
+
+```bash
+node -v
+npm -v
+```
+
+If you have versions older than specified, update Node.js from the [official website](https://nodejs.org/en/download/) or use a version manager such as [nvm](https://github.com/nvm-sh/nvm) for flexible environment setup.
+
+
+## 3. Required API Keys
+
+Open Lovable integrates with external AI providers to generate and apply React app code seamlessly. These services require credential setup before you get started.
+
+### Essential API Keys
+
+- **OpenAI API Key:** Used to access OpenAI models for AI code generation.
+- **Anthropic API Key:** Alternative AI provider integration.
+- **Groq API Key:** Optional but recommended for advanced AI processing.
+
+
+### How to Obtain API Keys
+
+Visit the respective provider's developer portal and create an account if you haven't already:
+
+- [OpenAI API Key Registration](https://platform.openai.com/account/api-keys)
+- [Anthropic API Key Setup](https://www.anthropic.com/)
+- [Groq API Key Access](https://www.groq.ai/)
+
+
+### Environment Variable Naming
+
+After obtaining these keys, set them as environment variables on your machine or in your deployment environment:
+
+```bash
+export OPENAI_API_KEY='your-openai-api-key-here'
+export ANTHROPIC_API_KEY='your-anthropic-api-key-here'
+export GROQ_API_KEY='your-groq-api-key-here'
+```
+
+> For Windows Command Prompt, use `set` instead of `export`.
+
+### Why Are These API Keys Important?
+
+These keys authenticate your usage of AI services that power Open Lovable’s dynamic React app generation. Without them, the AI backend won’t respond, and your sandbox environment won’t initialize properly.
+
+
+## 4. Network and Security Considerations
+
+Ensure your network environment adheres to these requirements to connect successfully:
+
+- Outbound HTTPS access to the API endpoints of OpenAI, Anthropic, and Groq
+- Allow WebSocket connections for live updates when applicable
+- No restrictive firewalls blocking ports used by sandboxed development servers (default port 5173)
+
+If you are behind a corporate proxy or firewall, consult your IT department to whitelist these requirements.
+
+
+## 5. Common Preparation Tasks
+
+Follow these tasks to prepare your system and environment optimally:
+
+### Install Node.js and npm
+
+- If Node.js is not installed, download it from the [official Node.js website](https://nodejs.org).
+- Verify installation with `node -v` and `npm -v` as shown earlier.
+
+### Setup API Keys
+
+- Store your API keys securely as environment variables as described in Section 3.
+- Double-check you have no trailing spaces or incorrect characters.
+
+### Confirm Network Accessibility
+
+- Ping the AI provider endpoints with a simple `curl` or browser test to verify connectivity.
+
+```bash
+curl https://api.openai.com/v1/models
+```
+
+- If access fails, review your firewall or proxy settings.
+
+
+## 6. Troubleshooting Common Setup Problems
+
+<AccordionGroup title="Common Prerequisite Issues & Solutions">
+<Accordion title="Node.js or npm is not installed or outdated">
+Ensure you’ve downloaded and installed the required versions from https://nodejs.org. Use `nvm` or similar tools for easier version management if you work on multiple projects.
+</Accordion>
+<Accordion title="API keys are missing or invalid">
+Double-check your API keys and environment variable names. Make sure you have no extra quotes or spaces.
+
+Example environment variable setup:
+```bash
+export OPENAI_API_KEY='your_api_key_here'
+```
+
+If running in a development environment, restart your terminal or IDE to register the new variables.
+</Accordion>
+<Accordion title="Network connectivity issues">
+Confirm your firewall or proxy settings allow traffic to the AI providers’ APIs and sandbox ports.
+
+Try `ping` or `curl` to verify access.
+</Accordion>
+<Accordion title="Operating system compatibility issues">
+Ensure your operating system version and architecture meet the minimum requirements outlined in Section 1.
+
+Upgrade or switch to a supported OS if necessary.
+</Accordion>
+</AccordionGroup>
+
+
+## 7. Summary
+
+By completing these prerequisite steps, your environment will be fully prepared for a smooth Open Lovable experience. This preparation prevents common errors related to system incompatibilities, missing dependencies, or network restrictions.
+
+Your next step is to proceed with the **Installation** guide to set up Open Lovable itself.
+
+
+---
+
+## Appendix: Quick Version Commands
+
+| Command                          | Purpose                       |
+|---------------------------------|-------------------------------|
+| `node -v`                       | Show installed Node.js version|
+| `npm -v`                        | Show installed npm version    |
+| `echo $OPENAI_API_KEY`          | Verify OpenAI API key on Unix|
+| `echo %OPENAI_API_KEY%`         | Verify OpenAI API key on Win |
+| `curl https://api.openai.com/v1/models` | Test OpenAI API connectivity |
+
+
+# End of Prerequisites & System Requirements
+
+---
+
+[Next Step: Installation Instructions](/getting-started/setup-installation/installation-steps)
+
+---
+
+## Additional Resources
+
+- [Open Lovable GitHub Repository](https://github.com/mendableai/open-lovable)
+- [OpenAI API Documentation](https://platform.openai.com/docs)
+- [Anthropic AI Documentation](https://www.anthropic.com/docs)
+- [Groq AI Documentation](https://docs.groq.ai/)
+- [Node.js Official Site](https://nodejs.org)
+
+---
+
+This documentation page fits within the Getting Started > Setup & Installation section and prepares you for the detailed Installation and Environment Configuration steps that follow. Ensure these prerequisites are fully met to avoid any delays or frustration during your onboarding journey.
+
+
+<Check>
+You have verified that your system:
+- Runs a supported OS
+- Has Node.js (18+) and npm (8+) installed
+- Has valid API keys set in your environment
+- Can access necessary network endpoints
+</Check>
+
+<Tip>
+Keep your API keys secure and never share them publicly. Use environment management tools like `.env` files or system environment variables for safe storage.
+</Tip>
+
+<Warning>
+Running outdated Node.js or npm versions can cause unpredictable errors. Upgrade before proceeding.
+</Warning>

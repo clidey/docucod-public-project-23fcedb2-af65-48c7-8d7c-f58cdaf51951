@@ -1,0 +1,265 @@
+---
+title: "Generating React App Code with AI"
+description: "Walks through using natural language prompts to generate or edit React code with the AI chat interface. Details the conversational workflow, context extraction, managing state, and watching changes stream live. Includes tips on getting quality results and using code previews."
+---
+
+# Generating React App Code with AI
+
+This guide walks you through using the Open Lovable AI-powered chat interface to generate or edit React application code naturally and effectively. Learn how to interact with the conversational UI to produce modern React and Tailwind CSS components, manage contextual state, watch live streaming code updates, and preview results instantly.
+
+---
+
+## 1. Workflow Overview
+
+### What This Guide Helps Accomplish
+
+This page explains how to use natural language prompts within the AI chat to generate or modify React app code on-the-fly. You will understand how the system processes your input, streams code files as they are generated, manages sandbox environments, and helps you visualize generated code before applying it.
+
+### Prerequisites
+
+- Access to the Open Lovable application with sandbox environment enabled.
+- Basic understanding of React and Tailwind CSS (recommended).
+- Familiarity with conversational interfaces for AI assistance.
+
+### Expected Outcome
+
+After following this guide, you will be able to: 
+
+- Generate complete React app components by describing requirements conversationally.
+- Watch live streaming of generated code files and edit indicators.
+- Apply AI-generated code safely to your sandbox project.
+- Preview your React app instantly through a sandbox iframe.
+- Manage iterations with edit mode and incremental updates seamlessly.
+
+### Time Estimate
+
+- Initial setup and first generation: 5-10 minutes
+- Typical generation or edits: 30 seconds to a few minutes depending on scope
+
+### Difficulty Level
+
+Intermediate (assuming familiarity with React and web development basics)
+
+---
+
+## 2. Using the AI Chat Interface for Code Generation
+
+The main interaction model of the page revolves around sending natural language prompts and receiving streamed React app code in response.
+
+### Step 1: Start a New Sandbox or Restore One
+
+- Upon loading, the system creates or restores an AI sandbox environment where your code will be generated and executed.
+- The sandbox runs a Vite React app with Tailwind CSS setup by default.
+- You can verify the sandbox status via the status indicator and logs.
+
+### Step 2: Enter a Prompt in the AI Chat Input
+
+- Describe your desired app, feature, or edit clearly.
+- You may also clone websites by providing a URL (see "Cloning Websites" in related guides).
+- Special package installation commands like `npm install` or `check packages` are recognized.
+
+### Step 3: Observe Live Streaming of Generated Code
+
+- As the AI processes your prompt, the response streams live code updates.
+- Files appear incrementally in the file explorer, with indicators showing edited or new files.
+- You can preview each file's content inline via syntax-highlighted panels.
+
+### Step 4: Apply Generated Code to Sandbox
+
+- Once generation is complete, apply the code to your sandbox environment automatically or on request.
+- The system installs any detected packages prior to creating files.
+- Any commands specified by the AI (e.g., build scripts) execute in the sandbox.
+
+### Step 5: Preview Your React App
+
+- The sandboxes host your app at a unique URL rendered inside an iframe.
+- Refreshing happens automatically after updates, or manually using the refresh button.
+
+### Step 6: Iterative Edits
+
+- After initial generation, you can ask for targeted edits. The system detects minimal edits and applies only necessary changes.
+- Incremental status and completion messages inform you of the impacts.
+
+---
+
+## 3. Managing Context and State
+
+### Conversation Context
+
+- The AI maintains context including:
+  - Previously scraped web content
+  - Generated components and their paths
+  - Applied code versions and timestamps
+  - Current project details
+
+### Generation and Application State
+
+- `generationProgress` state tracks:
+  - Whether code is generating or streaming
+  - Status texts reflecting AI processing steps
+  - Files parsed, completed, or currently streaming
+  - Edit mode flags indicating incremental updates
+
+- `codeApplicationState` tracks applying files and packages with stage indicators like "analyzing," "installing," "applying," and "complete."
+
+---
+
+## 4. Real-Time Streaming and File Handling
+
+The AI response is consumed as a Server-Sent Events (SSE) stream.
+
+- Incoming chunks contain metadata tags such as `<file path=...>` marking code file boundaries.
+- The UI accumulates and parses these files live, updating the explorer and code preview.
+- Edited/new files are marked distinctly to guide user focus.
+- Partial streaming shows "current file being generated" for visual feedback.
+
+### File Explorer
+
+- Files are grouped by directory and displayed hierarchically.
+- Folder expand/collapse state is maintained.
+- Clicking a file shows syntax-highlighted code content.
+- File icons correspond to file types (.jsx, .tsx, .css, .json).
+
+---
+
+## 5. Package Detection and Installation
+
+- AI-generated XML response may include `<package>` or `<packages>` tags listing NPM packages to install.
+- Packages detected in import statements are auto-extracted.
+- The system installs detected packages before writing files.
+- Package installation progress and NPM output are streamed to the user.
+- If installation fails, warnings are shown but file creation proceeds.
+
+### User Commands
+
+- Typing `npm install` or `check packages` in the chat triggers manual package installation checks.
+
+---
+
+## 6. Applying Generated Code
+
+The application process follows:
+
+1. **Install packages** — all new dependencies detected.
+2. **Create or update files** — written into the sandbox, skipping template/config files.
+3. **Execute commands** — such as `npm run dev` or build scripts.
+4. **Refresh sandbox preview iframe** — ensuring latest code is reflected.
+
+Errors at any stage are reported with clear messages.
+
+---
+
+## 7. Tips for Best Results
+
+- **Be specific in prompts**: describe exactly the features, style, or edits you want.
+- **Avoid vague requests** to help AI generate precise code.
+- **Use provided style selector on Home Screen** to influence generated design themes.
+- **Review streamed code** as it appears to catch issues early.
+- **Incremental edits** produce faster and more focused results.
+- **Use chat commands** like `check packages` to maintain dependency health.
+- **Stay patient during initial sandbox creation and package installation.**
+
+---
+
+## 8. Troubleshooting
+
+### Common Issues
+
+- **Sandbox not active or disconnected:** Use the "Create new sandbox" button to reset.
+- **Package installation failures:** Review real-time npm output for errors.
+- **File creation errors:** Ensure file paths are valid and not overlapping existing config files.
+- **Build errors shown in chat:** Use error messages to locate and fix problems, or request AI to correct errors explicitly.
+- **Iframe not refreshing:** Use manual refresh or try recreating the sandbox.
+
+### Helpful Actions
+
+- Use the **"Re-apply last generation"** button if changes seem lost.
+- Clear chat history to reduce context if AI responses become erratic.
+- Restart the Vite dev server manually if needed.
+
+---
+
+## 9. Sample User Flow
+
+```text
+User: "Generate a responsive React landing page with header, hero, features, and footer."
+System: Creates sandbox automatically.
+AI: Streams App.jsx, Header.jsx, Hero.jsx, ...
+User: Watches files populate explorer.
+User: Applies code, watches packages install and files write.
+System: Sandbox iframe refreshes.
+User: Sees live preview of landing page.
+User: "Change header background to black."
+AI: Streams targeted Header.jsx edit.
+User: Applies incremental edit.
+---
+```
+
+---
+
+## 10. Example Generated Code Snippet
+
+An example streamed file tag:
+
+```xml
+<file path="src/components/Header.jsx">
+import React from 'react';
+
+export default function Header() {
+  return (
+    <header className="bg-black p-4 text-white">
+      <nav>
+        <a href="#hero" className="mr-4 hover:text-gray-300">Home</a>
+        <a href="#features" className="hover:text-gray-300">Features</a>
+      </nav>
+    </header>
+  );
+}
+</file>
+```
+
+The system will detect packages (e.g., React) and handle file creation in order.
+
+---
+
+## 11. Related Documentation and Resources
+
+- [Creating and Managing a New AI Sandbox](/guides/getting-started-workflows/initialize-ai-sandbox)
+- [Applying AI-Suggested Code to Your Sandbox](/guides/getting-started-workflows/apply-ai-changes)
+- [Automated Package Detection and Installation](/guides/advanced-usage-integration/package-management-automation)
+- [Cloning Websites and Importing External Code](/guides/advanced-usage-integration/scrape-clone-websites)
+- [Handling Errors and Leveraging Live Feedback](/guides/best-practices-troubleshooting/handling-errors-feedback)
+
+---
+
+## 12. Summary Diagram
+
+```mermaid
+flowchart TD
+  A[Start with User Prompt in AI Chat] --> B[AI Processes Prompt]
+  B --> C{Is sandbox ready?}
+  C -->|No| D[Create or Restore Sandbox]
+  D --> E[Send prompt and context to AI Code Generator]
+  C -->|Yes| E
+  E --> F[Stream generated code files & package info]
+  F --> G[Detect and install NPM packages]
+  G --> H[Create or update code files in sandbox]
+  H --> I[Execute sandbox commands (e.g., npm run dev)]
+  I --> J[Refresh sandbox preview iframe]
+  J --> K[User views live React app]
+  K --> L{User requests edits?}
+  L -->|Yes| E
+  L -->|No| M[End Session or New Prompt]
+
+  style D fill:#f9f,stroke:#333,stroke-width:2px
+  style E fill:#bbf,stroke:#333,stroke-width:2px
+  style G fill:#bfb,stroke:#333,stroke-width:2px
+  style H fill:#fbf,stroke:#333,stroke-width:2px
+  style I fill:#ffb,stroke:#333,stroke-width:2px
+```
+
+---
+
+This page empowers you to effectively harness natural language to build modern React apps with instant sandboxed live preview and surgical incremental edits through a seamless conversational interface.
+
+---

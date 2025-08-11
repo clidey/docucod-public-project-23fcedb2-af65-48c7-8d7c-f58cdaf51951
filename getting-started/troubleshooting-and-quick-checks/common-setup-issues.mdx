@@ -1,0 +1,219 @@
+---
+title: "Common Setup Issues"
+description: "Identify and resolve frequent problems encountered during installation or configuration, such as missing dependencies, misconfigured API keys, or port clashes. Simple solutions help you get unstuck, fast."
+---
+
+# Common Setup Issues
+
+This guide helps you quickly identify and resolve frequent problems encountered during the installation or configuration of Open Lovable. By addressing these common pitfalls, you can get your environment up and running smoothly and avoid wasted time troubleshooting avoidable errors.
+
+---
+
+## 1. Missing Dependencies or Unsupported Versions
+
+Open Lovable relies on specific system prerequisites and dependencies. Missing or incompatible versions cause failures during setup.
+
+### Symptoms
+- `npm install` fails due to missing Node.js or npm.
+- Errors referencing unsupported Node.js, npm, or package versions.
+- Unexpected crashes or commands not recognized.
+
+### Solutions
+- **Verify Node.js and npm versions**: Open Lovable requires Node.js and npm at supported versions. Run:
+
+  ```bash
+  node -v
+  npm -v
+  ```
+
+  Ensure Node.js is at least **v18.x** and npm **>= 8.x**.
+
+- **Install missing dependencies**:
+  - On macOS, use Homebrew: `brew install node`
+  - On Debian/Ubuntu: `sudo apt-get install nodejs npm`
+
+- **Use Node Version Manager (nvm)** to switch versions if needed:
+
+  ```bash
+  nvm install 18
+  nvm use 18
+  ```
+
+- After version fixes, delete `node_modules` and `package-lock.json` then rerun:
+  
+  ```bash
+  npm install
+  ```
+
+---
+
+## 2. Misconfigured or Missing API Keys
+
+Open Lovable integrates with external services that require API keys: E2B sandbox, Firecrawl web scraping, and AI providers (OpenAI, Anthropic, Groq).
+
+### Symptoms
+- Error messages referencing authentication failures.
+- Sandbox creation or AI generation fails with authorization errors.
+- No responses or connectivity errors when making API calls.
+
+### Solutions
+- Check that all required API keys are defined in your `.env.local` or environment variables. Essential keys:
+
+  ```env
+  E2B_API_KEY=your_e2b_api_key
+  FIRECRAWL_API_KEY=your_firecrawl_api_key
+  OPENAI_API_KEY=your_openai_api_key  # or ANTHROPIC_API_KEY / GROQ_API_KEY
+  ```
+
+- Validate API keys' correctness and permissions via provider dashboards.
+- Restart your development server after setting or changing keys to reload environment variables.
+- Ensure your local `.env.local` is not accidentally ignored or misnamed.
+- If unsure which AI provider to use, start with OpenAI or Anthropic keys.
+
+<Note>
+Always keep your API keys secure. Do not commit them to public version control.
+</Note>
+
+---
+
+## 3. Port Conflicts and Sandbox Startup Issues
+
+The sandbox Vite dev server uses port 5173 by default. If the port is busy, sandbox startup or preview will fail.
+
+### Symptoms
+- Errors mentioning "port already in use" or "EADDRINUSE".
+- Sandbox creation stalls or reports failure.
+- No preview loaded or long spinning "Starting Vite dev server..." message.
+
+### Solutions
+- Identify if port 5173 is in use by another application:
+
+  ```bash
+  lsof -i :5173
+  ```
+
+- Kill the conflicting process if safe:
+
+  ```bash
+  kill -9 <PID>
+  ```
+
+- Alternatively, restart your machine to reset port usage.
+- Confirm that no other instances of Vite or sandbox processes are running.
+- If needed, update port in `app/config/app.config.ts` and restart sandbox.
+
+<Warning>
+Open Lovable requires exclusive access to the configured port for the local sandbox preview service.
+</Warning>
+
+---
+
+## 4. Vite Server Errors and Build Failures
+
+Errors thrown during the Vite server startup often relate to improper project setup or missing dependencies.
+
+### Symptoms
+- Build errors referencing missing packages like `react-router-dom`.
+- Vite server crashes or fails to start.
+- Console output showing "module not found" or "cannot resolve" errors.
+
+### Solutions
+- Run `npm install` to ensure dependencies are all installed.
+- Use chat commands or prompt the system to "check packages" to trigger automatic dependency detection and installation.
+- Review the console for specific missing packages; install them manually if needed:
+
+  ```bash
+  npm install react-router-dom
+  ```
+
+- The project template includes basic React and Tailwind dependencies. Additional packages are auto-installed as needed.
+- Avoid manually modifying `package.json` unless you understand the dependencies.
+
+<Tip>
+Communicate missing package errors via chat commands such as "npm install" to automatically resolve dependencies.
+</Tip>
+
+---
+
+## 5. Sandbox File Write Failures
+
+The sandbox runs in a virtual environment where file writes can occasionally fail due to internal errors or file path issues.
+
+### Symptoms
+- Errors logged in console indicating failure to write or update files.
+- Partial generation with missing components or incomplete code files.
+- "Failed to create" errors with specific file paths.
+
+### Solutions
+- Ensure your sandbox is active and connected before applying code.
+- Restart the sandbox using the "Create new sandbox" button.
+- Check that filenames and directory structures adhere to expectations:
+  - All source code files should be under `src/` except certain root files like `index.html`.
+  - No leading slashes in paths.
+- Avoid including forbidden or duplicate config files from AI responses. The system skips `tailwind.config.js`, `package.json`, etc. if they exist.
+- If file write errors persist, recreate sandbox.
+
+---
+
+## 6. AI Code Application Errors and Missing Imports
+
+AI-generated code may reference components or packages not yet created or installed.
+
+### Symptoms
+- Application errors about missing modules or components.
+- Warnings about missing imports in the chat logs.
+- Auto-completion of missing components sometimes fails.
+
+### Solutions
+- The system automatically detects missing components and attempts to generate them. If some are skipped, ask explicitly in the chat to "create missing components."
+- For missing package dependencies, trigger `npm install` via chat to install them.
+- Monitor chat logs for messages about auto-generated files or warnings.
+- Clear chat history and retry if code application hangs or behaves unexpectedly.
+
+<Note>
+AI-generated code respects incremental edits and won't overwrite existing core files unless explicitly requested.
+</Note>
+
+---
+
+## 7. Network and Firewall Restrictions
+
+External API calls for AI and sandbox connectivity require open network access.
+
+### Symptoms
+- Connection timeouts to sandbox or AI services.
+- API errors indicating unreachable hosts.
+- Failure to create sandbox or generate code.
+
+### Solutions
+- Ensure your network allows outbound HTTPS connections to providers like OpenAI, Anthropic, Firecrawl, and E2B sandbox endpoints.
+- Open required ports and disable restrictive firewalls temporarily to test.
+- Proxy or VPN configurations may interfere; test on a clean network.
+- Verify that environment variable URLs are correct and accessible.
+
+---
+
+## Troubleshooting Checklist
+
+| Issue                       | Cause                                    | Action                 |
+|-----------------------------|------------------------------------------|------------------------|
+| Missing Node/npm             | Not installed or incompatible versions  | Install/update Node.js  |
+| API key errors              | Missing or incorrect API keys             | Verify `.env.local`    |
+| Port 5173 in use            | Another app occupies the port             | Kill process or change port |
+| Vite build errors           | Missing dependencies or improper setup   | Run `npm install`, check console logs |
+| File write failures         | Sandbox inactive or invalid file paths   | Restart sandbox; check paths |
+| Missing components or packages | Auto-generation incomplete or missing    | Request missing parts in chat, run `npm install` |
+| Network errors              | Firewall or proxy blocking connections   | Verify network access   |
+
+---
+
+## When to Reach Out for Help
+
+If you have reviewed the above and continue experiencing issues:
+
+- Confirm you followed the [Prerequisites & System Requirements](../setup-installation/prerequisites-and-requirements) and [Installation Steps](../setup-installation/installation-steps).
+- Review logs and errors in your terminal and in chat messages.
+- Visit the GitHub repository: [https://github.com/mendableai/open-lovable](https://github.com/mendableai/open-lovable) for issues and community help.
+- Contact support with detailed error logs and environment information.
+
+---

@@ -1,0 +1,225 @@
+---
+title: "Environment Configuration"
+description: "Set up your local environment with essential API keys and configuration options. Learn how to tailor Open Lovable to your needs and unlock core features such as sandboxes and web scraping from day one."
+---
+
+# Environment Configuration
+
+Configure your local environment to unlock the full power of Open Lovable. This guide walks you through setting essential API keys and options to enable core features like sandbox creation, web scraping, and AI code generation, ensuring you can start building and prototyping immediately.
+
+---
+
+## 1. Overview
+
+Open Lovable relies on seamless integration between AI providers, sandboxed development environments, and web scraping services. Environment configuration is critical to enable these core services:
+
+- **AI Providers**: OpenAI, Anthropic, Groq
+- **Sandbox Management**: E2B sandbox API and runtime
+- **Web Scraping**: Scraping website content and screenshots
+
+Proper setup lets you create live React and Tailwind sandboxes, generate AI-powered app code, and preview your changes in real-time.
+
+---
+
+## 2. Essential Environment Variables
+
+You must define the following API keys and configurations as environment variables for Open Lovable to function:
+
+| Variable Name            | Purpose                                              |
+|--------------------------|------------------------------------------------------|
+| `E2B_API_KEY`            | API key for E2B sandbox management                    |
+| `OPENAI_API_KEY`         | API key for OpenAI AI model integration               |
+| `ANTHROPIC_API_KEY`      | API key for Anthropic AI service                       |
+| `GROQ_API_KEY`           | API key for Groq API integration                       |
+| `ANTHROPIC_BASE_URL`     | (Optional) Custom Anthropic API endpoint              |
+| `NEXT_PUBLIC_APP_URL`    | Public URL for your deployed Open Lovable app (for API calls)
+
+
+### Setting Environment Variables
+
+In your local development environment create a `.env.local` file at the project root and add keys like this:
+
+```env
+E2B_API_KEY=your-e2b-api-key-here
+OPENAI_API_KEY=your-openai-key-here
+ANTHROPIC_API_KEY=your-anthropic-key-here
+GROQ_API_KEY=your-groq-key-here
+ANTHROPIC_BASE_URL=https://api.anthropic.com/v1  # optional
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+> <Tip>
+> Keep API keys secure and never commit them to public repositories.
+> </Tip>
+
+---
+
+## 3. Configuration Files Overview
+
+Open Lovable ships with key configuration files tailored for smooth sandbox operations and styling consistency:
+
+- **`tailwind.config.ts`**: Tailwind CSS configuration with custom themes, dark mode enabled via `darkMode: 'class'`, and color extensions using CSS variables.
+- **`next.config.ts`**: Next.js default configuration; you can customize if deploying in different environments.
+- **`postcss.config.mjs`**: PostCSS setup to enable Tailwind processing and autoprefixing.
+
+These files are included by default in your sandbox environments to provide a robust starting point.
+
+---
+
+## 4. Sandbox Environment Setup
+
+Open Lovable's sandbox environment is provisioned dynamically using the E2B platform, running a fully-configured React app with Vite and Tailwind CSS.
+
+### Key Configuration Points:
+
+- Sandbox timeouts are set via `appConfig.e2b.timeoutMinutes` (default 15 minutes).
+- Vite dev server runs on port 5173.
+- The sandbox initializes with starter React files, including `App.jsx`, `index.css` (Tailwind directives), and config files (Vite, Tailwind, PostCSS).
+- Setup is automated using an inline Python script executed in the sandbox to create and configure files.
+
+> <Info>
+> For advanced users, you can adjust sandbox timeout, port, and startup delays by modifying `appConfig.e2b` settings in `config/app.config.ts`.
+> </Info>
+
+---
+
+## 5. AI Model & API Configuration
+
+The AI models enabled and their settings are controlled via environment variables and the central `appConfig.ai` object.
+
+| Setting                      | Description                                    |
+|------------------------------|------------------------------------------------|
+| Default model                | `'moonshotai/kimi-k2-instruct'` (can override via UI or query params)
+| Available models             | `['openai/gpt-5', 'moonshotai/kimi-k2-instruct', 'anthropic/claude-sonnet-4-20250514']`
+| API keys for OpenAI, Anthropic, and Groq must be set as env vars |
+
+You can select the AI model dynamically in the UI or via URL parameters for flexible experimentation.
+
+---
+
+## 6. Tailwind Configuration Highlights
+
+The `tailwind.config.ts` file extends the default theme and defines colors using CSS variables to enable dynamic theming and dark mode support.
+
+### Highlights:
+
+- **Dark mode** is enabled via the `class` strategy, enabling toggling with a `.dark` class.
+- Color palette uses HSL values tied to CSS variables like `--primary`, `--background`, `--foreground` for flexible theme adjustments.
+- Container is centered and padded with `2rem` for all screen sizes, maxing out at `1400px` for 2xl screens.
+- Custom border-radius values use CSS variables for consistent rounding.
+- Font families define `sans` and `mono` stack referencing custom font variables.
+
+```ts
+// Example snippet from tailwind.config.ts
+const config: Config = {
+  darkMode: 'class',
+  theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: { '2xl': '1400px' },
+    },
+    extend: {
+      colors: {
+        primary: { DEFAULT: 'hsl(var(--primary))', foreground: 'hsl(var(--primary-foreground))' },
+        // additional colors...
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
+      fontFamily: {
+        sans: ['var(--font-inter)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'monospace'],
+      },
+    },
+  },
+};
+```
+
+> <Tip>
+> Customize Tailwind CSS theme colors and styles using your own CSS variables for branding or dark mode themes.
+> </Tip>
+
+---
+
+## 7. Networking and Access Requirements
+
+To enable sandbox and AI features, ensure these conditions:
+
+- **Local firewall** allows outbound HTTPS connections on ports 443 (for APIs) and 5173 (for sandbox dev server).
+- Sandbox URLs follow the pattern `https://{sandboxId}-5173.e2b.dev` and require internet access.
+- The app uses `/api/` routes internally to communicate with sandbox and AI backend.
+- For production deployments, set `NEXT_PUBLIC_APP_URL` accordingly to your hosted endpoint.
+
+> <Warning>
+> If sandbox or AI calls fail, check your network proxy and firewall settings.
+> </Warning>
+
+---
+
+## 8. Best Practices for Environment Configuration
+
+- Always keep your API keys private and secure.
+- Restart your development server after updating environment variables.
+- Use `.env.local` for local development and `.env.production` for deployed environments.
+- Validate API key permissions for AI providers to avoid auth errors.
+- Regularly update dependencies to keep sandbox and Tailwind compatibility.
+- Tailor `appConfig` settings for timeout and port adjustments if needed.
+
+---
+
+## 9. Troubleshooting
+
+### Sandbox Fails to Start
+- Verify `E2B_API_KEY` is valid and has quota.
+- Check for existing sandbox instances and kill duplicates.
+- Confirm port 5173 is available locally.
+
+### AI Models Not Responding
+- Confirm API keys for OpenAI, Anthropic, or Groq are set correctly.
+- Confirm your selected AI model is included in `appConfig.ai.availableModels`.
+
+### Tailwind Styles Not Applying
+- Ensure `tailwind.config.ts` content paths match your file structure.
+- Confirm your CSS file includes the proper `@tailwind` directives.
+
+### Network Errors
+- Check your internet connection and firewall rules.
+- Verify your environment's `NEXT_PUBLIC_APP_URL` matches your deployment.
+
+> <Note>
+> For detailed issues, refer to related troubleshooting documentation and quick validation steps in the Getting Started section.
+> </Note>
+
+---
+
+## 10. Next Steps
+
+Once your environment is correctly configured:
+
+- Proceed to **[Create and Manage a New AI Sandbox](/guides/getting-started-workflows/initialize-ai-sandbox)** to provision your first sandbox.
+- Explore **[Generating React App Code with AI](/guides/getting-started-workflows/ai-code-generation)** for hands-on app creation.
+- Understand **[Automated Package Detection and Installation](/guides/advanced-usage-integration/package-management-automation)** to keep dependencies in sync.
+
+---
+
+## References
+
+- [Tailwind CSS Configuration Reference](https://tailwindcss.com/docs/configuration)
+- [OpenAI API Documentation](https://platform.openai.com/docs/)
+- [Anthropic API Documentation](https://docs.anthropic.com/)
+- [Groq API Documentation](https://groq.ai/docs)
+- [E2B Sandbox Documentation](https://e2b.dev/docs)
+
+---
+
+For full setup details and troubleshooting, visit the **Getting Started** section of the documentation.
+
+
+---
+
+  
+---
+
