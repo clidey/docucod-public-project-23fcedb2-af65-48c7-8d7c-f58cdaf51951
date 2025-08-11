@@ -3,4 +3,128 @@ title: "Core Concepts & Terminology"
 description: "Defines essential domain terms like 'AI Sandbox', 'AI Code Generation', 'Code Application Stream', 'File Manifest', and 'Live Preview'. Clarifies the product’s mental model, so users can confidently interpret UI, settings, and documentation."
 ---
 
-*This page will automatically be generated from the codebase*
+# Core Concepts & Terminology
+
+Understanding the key terms and domain concepts is critical for successfully navigating Open Lovable's user interface, settings, and documentation. This page introduces essential terminology and clarifies the mental model behind the product, helping you confidently interpret features, workflows, and error messages.
+
+---
+
+## AI Sandbox
+
+The AI Sandbox is your isolated, live development environment where the React application is created and tested. It functions like a containerized workspace that runs your code in real-time, providing an instant preview of updates without affecting your local machine.
+
+- **Purpose:** Enables rapid prototyping and live code execution.
+- **User Impact:** You interact with the sandbox mainly through the UI; no manual setup is required.
+- **Key UI Indicators:** Sandbox creation status, URL, and health indicators show sandbox readiness.
+
+## AI Code Generation
+
+This is Open Lovable's core feature — using AI to generate, modify, and improve React code in response to your prompts.
+
+- **How it Works:** You provide a prompt or request, and the AI generates React components, routes, styles, and related code.
+- **Incremental Generation:** Supports creating new apps or making surgical edits to existing projects.
+- **User Flow:** Initiated from the chat UI or cloning workflows, AI Code Generation streams its output live for immediate feedback.
+
+## Code Application Stream
+
+The Code Application Stream represents the real-time feedback you receive when AI-generated code is applied to your sandbox.
+
+- **Stages Represented:** Package installation, file creation/updating, command execution.
+- **UI Experience:** Shows colored terminal-like logs, progress steps, and success/failure indicators.
+- **Transparency:** Helps identify where errors or delays happen in the deployment process.
+
+## File Manifest
+
+The File Manifest is a structured representation of all files currently in your AI Sandbox project.
+
+- **Composition:** Includes metadata about each file, such as path, type (component, style, utility), exports, imports, and last modified timestamps.
+- **Purpose:** Used by AI workflows to decide which files need editing or context during code generation.
+- **User Benefit:** Supports surgical editing by precisely targeting only the files relevant to your requests.
+
+## Live Preview
+
+Live Preview is the iframe-based visual display of your React application running inside the sandbox.
+
+- **Real-Time Updates:** Automatically refreshes when new code is applied.
+- **User Interaction:** Allows manual refreshes, shows loading and error states.
+- **UX Integration:** Seamlessly links code editing and testing in one place, enhancing development speed.
+
+---
+
+## How These Concepts Fit Together
+
+When you send a prompt asking to create or modify a React app:
+
+1. The **AI Code Generation** engine interprets your request and streams generated code.
+2. The **Code Application Stream** applies the code incrementally into the **AI Sandbox**, installing packages, writing files, and running commands.
+3. The **File Manifest** ensures the AI edits only the necessary files, preserving existing code and project structure.
+4. The **Live Preview** updates automatically in an embedded iframe to reflect live app changes.
+
+This workflow means you get continuous visual feedback and transparent insight into code application status, all while leveraging an intelligent and context-aware editing process.
+
+---
+
+## Practical Example: Editing a Component
+
+Imagine you want to change the background color of your `Header.jsx` component.
+
+- The AI identifies `Header.jsx` via the **File Manifest** as the target to edit.
+- During **AI Code Generation**, it produces only the necessary code to update the color, preserving all else.
+- The **Code Application Stream** shows package installations if needed, writes the updated file, and runs any required commands.
+- Your **Live Preview** iframe refreshes to instantly show the new header background color.
+
+This tight loop optimizes your workflow and removes guesswork from managing files and dependencies.
+
+---
+
+## Tips for Working with Core Concepts
+
+- **AI Sandbox ID:** Keep track of your sandbox ID when sharing or referencing your workspace.
+- **Watch Package Installation:** Package detection is automatic, but watch for errors in the installation logs.
+- **Respect File Manifest Guidance:** Avoid creating duplicate components; use the manifest to understand existing components.
+- **Leverage Live Preview:** Use the iframe controls to reload or debug your application visually.
+- **Understand Progress Indicators:** Recognize different log types in the Code Application Stream UI - system messages, commands, errors, and success confirmations.
+
+---
+
+## Frequently Asked Questions
+
+<AccordionGroup title="FAQs on Core Concepts">
+<Accordion title="What if the Live Preview doesn’t update?">
+If the Live Preview iframe does not refresh automatically, try the manual refresh button next to it. Also, check that the Code Application Stream completed successfully without errors in file writing or package installation.
+</Accordion>
+<Accordion title="How are packages installed automatically?">
+Packages are detected from `<package>` and `<packages>` XML tags in AI responses or via import statements scanning. The system installs needed packages before creating files, showing real-time progress.
+</Accordion>
+<Accordion title="Can I edit the sandbox files manually?">
+Currently, interactions occur via AI prompts and code application streams. Direct manual edits inside the sandbox file system are not exposed, but you can view generated code in the UI and request modifications via chat commands.
+</Accordion>
+<Accordion title="How does the AI know which files to change?">
+The AI uses the File Manifest to analyze your prompt, predicting the minimal set of primary files to modify, supplemented by context files for reference, ensuring surgical precision.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Terminology Cheatsheet
+
+| Term                 | Definition                                                                                 |
+|----------------------|--------------------------------------------------------------------------------------------|
+| **AI Sandbox**       | Containerized project workspace hosting your React app and all generated files.          |
+| **AI Code Generation**| Process where the AI produces React code based on your conversational input.               |
+| **Code Application Stream** | Real-time event stream reporting progress as AI code is installed, files written, commands run. |  
+| **File Manifest**    | Metadata collection that maps all project files, their types, imports, and exports.       |
+| **Live Preview**     | Embedded iframe showing live React app updates as code is applied.                       |
+
+---
+
+## Related Pages
+
+- [Product Value Proposition](/overview/product-introduction-and-value/product-value-proposition): Understand the main benefits of Open Lovable.
+- [High-Level Architecture](/overview/architecture-and-core-concepts/high-level-architecture): See how Core Concepts fit into the system design.
+- [Automated Package Management](/guides/advanced-usage-integration/package-management-automation): Learn how package detection and installation works in depth.
+- [Applying AI Suggested Code](/guides/getting-started-workflows/apply-ai-changes): Walk through the code application process with streaming feedback.
+
+---
+
+By familiarizing yourself with these essential terms and their roles, you will understand the flow from your prompt to a fully working, live React app in Open Lovable. This mental model empowers you to use the product effectively and troubleshoot with confidence.
