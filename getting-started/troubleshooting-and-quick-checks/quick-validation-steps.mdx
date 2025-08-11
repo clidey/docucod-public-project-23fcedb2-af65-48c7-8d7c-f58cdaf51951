@@ -3,4 +3,180 @@ title: "Quick Validation Steps"
 description: "Confirm your Open Lovable installation is operational by checking for expected outputs and core UI behavior. Learn what signals success, and swiftly move on to building your first AI-powered React app."
 ---
 
-*This page will automatically be generated from the codebase*
+# Quick Validation Steps
+
+Confirm your Open Lovable installation is operational by checking for expected outputs and core UI behavior. This guide helps you verify the setup quickly so you can confidently proceed to build your first AI-powered React app.
+
+---
+
+## 1. Confirm Sandbox Creation and Activation
+
+After completing installation and initial setup, your sandbox environment should be ready to use. Follow these steps to validate:
+
+1. **Check Sandbox Status Indicator:**
+   - On the main interface, look for the status indicator near the top-right corner.
+   - It should display 'Sandbox active' with a green dot.
+
+2. **Check Sandbox URL:**
+   - The sandbox panel or iframe should load a URL similar to `https://<sandbox-id>.e2b.app`.
+   - The embedded preview must display a React app with the default dark-themed welcome message:
+
+```jsx
+function App() {
+  return (
+    <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center p-4">
+      <div className="text-center max-w-2xl">
+        <p className="text-lg text-gray-400">
+          Sandbox Ready<br/>
+          Start building your React app with Vite and Tailwind CSS!
+        </p>
+      </div>
+    </div>
+  )
+}
+
+export default App
+```
+
+3. **Verify Loaded Base Files:**
+   - Via the File Explorer or API, confirm the presence of these essential files:
+     - `src/App.jsx`
+     - `src/main.jsx`
+     - `src/index.css`
+     - `index.html`
+     - `package.json`
+     - `vite.config.js`
+     - `tailwind.config.js`
+     - `postcss.config.js`
+
+
+## 2. Validate Core UI Behavior
+
+Your Open Lovable interface should respond correctly when interacting with sandbox features.
+
+- **Sandbox Creation:** Clicking the "Create Sandbox" button triggers sandbox provisioning.
+- **Live Preview:** The iframe updates automatically after applying code.
+- **Chat Interaction:** The AI chat accepts prompts and initiates code generation.
+- **Code Generation Streaming:** Displays real-time streaming of code files as they're generated.
+- **File Explorer:** Updates dynamically adding new or edited files during generation.
+
+If these behaviors work as expected, your installation is healthy.
+
+## 3. Confirm Package Installation Handling
+
+Since dependency management is critical for React apps, verify the automated package detection and installation:
+
+- After AI code generation, the system should detect necessary npm packages (e.g., `react-router-dom`, icon libraries).
+- The logs or chat messages indicate package installation progress.
+- In case npm errors occur, messages will notify you with inline error info.
+- You can also manually trigger package checks via chat commands:
+
+```plaintext
+check packages
+npm install
+install packages
+```
+
+
+## 4. Perform a Simple Test Operation
+
+To verify full functionality, try these steps:
+
+1. **Send a Basic AI Prompt:**
+   - Example: "Create a Button component with Tailwind styling"
+
+2. **Observe Code Generation:**
+   - Real-time streaming of a new `Button.jsx` component file.
+
+3. **Check Application of Code:**
+   - Success messages confirm files created and packages installed.
+
+4. **Confirm Live Preview Update:**
+   - The iframe reloads showing the new component in action (if integrated).
+
+5. **Check Logs and Messages:**
+   - No unresolved errors related to Vite, missing packages, or sandbox failures.
+
+
+## 5. Troubleshooting Common Issues
+
+- **Sandbox Not Active or Not Responding:**
+  - Refresh the page and try creating a sandbox again.
+  - Check your environment variables, especially `E2B_API_KEY`.
+
+- **Package Installation Fails:**
+  - Ensure network connectivity.
+  - Run `npm install` manually in the sandbox if possible.
+  - Review npm logs for conflicts or version mismatches.
+
+- **Iframe Does Not Load:**
+  - Verify that the sandbox URL is reachable.
+  - Check browser console for CORS or network errors.
+
+- **AI Generation Hangs or Errors Out:**
+  - Retry the prompt.
+  - Review API key validity for AI providers.
+  - Check server-side logs for detailed error messages.
+
+
+## 6. Where to Go Next
+
+With your environment validated:
+
+- Proceed to the [Creating and Managing a New AI Sandbox](../guides/getting-started-workflows/initialize-ai-sandbox) guide to create and customize sandboxes.
+- Explore [Generating React App Code with AI](../guides/getting-started-workflows/ai-code-generation) to start building features.
+- Use [Applying AI-Suggested Code to Your Sandbox](../guides/getting-started-workflows/apply-ai-changes) to understand code application cycles.
+- For issues refer to [Common Setup Issues](../getting-started/troubleshooting-and-quick-checks/common-setup-issues).
+
+---
+
+## Quick Reference Table
+
+| Checkpoint                         | How to Verify                                  | Success Sign                                   |
+|----------------------------------|-----------------------------------------------|------------------------------------------------|
+| Sandbox Status                   | UI indicator near top-right                    | 'Sandbox active' with green dot                 |
+| Embedded Preview/frame           | Displays React welcome message                 | Visible Tailwind-styled React app welcome screen|
+| File Presence                   | File Explorer or API `/api/get-sandbox-files` | Essential base files exist                       |
+| Package Management               | Logs/chat shows package install progress      | No unresolved package errors                     |
+| AI Chat & Code Generation       | Send prompt to AI, code streams in UI         | Code files appear, streamed progressively       |
+| Live Preview Refresh             | iframe reloads after applying code             | Updated UI reflects new code                      |
+
+
+## Additional Tips
+
+<Tip>
+If the embedded sandbox preview is slow to load, wait a few moments for Vite to fully start and HMR to complete.
+</Tip>
+
+<Tip>
+Use the chat commands 'check packages' or 'npm install' to manually trigger dependency validation and installation.
+</Tip>
+
+<Tip>
+Ensure environment variables for AI integrations and E2B API key are correctly set before sandbox creation.
+</Tip>
+
+<Warning>
+Skipping initial sandbox creation or misconfiguring environment variables will cause quick validation failures.
+</Warning>
+
+
+---
+
+This page guides you in efficiently verifying your Open Lovable setup so you can confidently begin AI-driven React development.
+
+---
+
+### Useful Links
+
+- [Prerequisites & System Requirements](../setup-installation/prerequisites-and-requirements)
+- [Installation Steps](../setup-installation/installation-steps)
+- [Environment Configuration](../setup-installation/environment-configuration)
+- [First Run & Product Validation](../setup-installation/first-run-and-validation)
+- [Common Setup Issues](../troubleshooting-and-quick-checks/common-setup-issues)
+- [Creating and Managing a New AI Sandbox](../../guides/getting-started-workflows/initialize-ai-sandbox)
+- [Generating React App Code with AI](../../guides/getting-started-workflows/ai-code-generation)
+- [Applying AI-Suggested Code to Your Sandbox](../../guides/getting-started-workflows/apply-ai-changes)
+
+---
+
