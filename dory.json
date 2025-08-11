@@ -1,0 +1,101 @@
+{
+  "background": {
+    "decoration": "gradient"
+  },
+  "colors": {
+    "dark": "#1E3A8A",
+    "light": "#60A5FA",
+    "primary": "#60A5FA"
+  },
+  "favicon": "/favicon.svg",
+  "fonts": {
+    "family": "Montserrat",
+    "format": "woff2",
+    "source": "https://fonts.gstatic.com/s/googlesansflex/v5/t5sJIQcYNIWbFgDgAAzZ34auoVyXkJCOvp3SFWJbN5hF8Ju1x6sKCyp0l9sI40swNJwGpVd4AZzz0v6lJ4qFXNZhGjLvDSkV4USKMo6qQzwliVdHAy9jxTDHg_ugnAakpwGc-cxgUqDCIUI.woff2"
+  },
+  "icons": {
+    "library": "fontawesome"
+  },
+  "logo": {
+    "dark": "./logo/logo.svg",
+    "light": "./logo/logo.svg"
+  },
+  "name": "Open Lovable",
+  "navigation": {
+    "tabs": [
+      {
+        "groups": [
+          {
+            "group": "What is Open Lovable?",
+            "pages": [
+              "overview/product-introduction-and-value/product-value-proposition",
+              "overview/product-introduction-and-value/target-audience-usecases",
+              "overview/product-introduction-and-value/feature-at-a-glance"
+            ]
+          },
+          {
+            "group": "Architecture \u0026 Core Concepts",
+            "pages": [
+              "overview/architecture-and-core-concepts/high-level-architecture",
+              "overview/architecture-and-core-concepts/core-concepts-terminology",
+              "overview/architecture-and-core-concepts/integration-external-systems"
+            ]
+          }
+        ],
+        "tab": "Overview"
+      },
+      {
+        "groups": [
+          {
+            "group": "Setup \u0026 Installation",
+            "pages": [
+              "getting-started/setup-installation/prerequisites-and-requirements",
+              "getting-started/setup-installation/installation-steps",
+              "getting-started/setup-installation/environment-configuration",
+              "getting-started/setup-installation/first-run-and-validation"
+            ]
+          },
+          {
+            "group": "Troubleshooting \u0026 Quick Checks",
+            "pages": [
+              "getting-started/troubleshooting-and-quick-checks/common-setup-issues",
+              "getting-started/troubleshooting-and-quick-checks/quick-validation-steps"
+            ]
+          }
+        ],
+        "tab": "Getting Started"
+      },
+      {
+        "groups": [
+          {
+            "group": "Getting Started \u0026 Essential Workflows",
+            "pages": [
+              "guides/getting-started-workflows/initialize-ai-sandbox",
+              "guides/getting-started-workflows/ai-code-generation",
+              "guides/getting-started-workflows/apply-ai-changes"
+            ]
+          },
+          {
+            "group": "Advanced Usage \u0026 Integration",
+            "pages": [
+              "guides/advanced-usage-integration/package-management-automation",
+              "guides/advanced-usage-integration/scrape-clone-websites"
+            ]
+          },
+          {
+            "group": "Best Practices \u0026 Troubleshooting",
+            "pages": [
+              "guides/best-practices-troubleshooting/optimizing-ai-prompts",
+              "guides/best-practices-troubleshooting/handling-errors-feedback"
+            ]
+          }
+        ],
+        "tab": "Guides"
+      }
+    ]
+  },
+  "styling": {
+    "codeblocks": "dark",
+    "eyebrows": "breadcrumbs"
+  }
+}
