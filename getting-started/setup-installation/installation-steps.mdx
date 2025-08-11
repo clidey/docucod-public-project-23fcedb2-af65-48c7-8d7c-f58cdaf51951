@@ -3,4 +3,183 @@ title: "Installation"
 description: "Follow clear, step-by-step guidance to clone the Open Lovable repository and install its dependencies for any platform. Get your environment ready in minutes, whether you're a first-timer or an experienced developer."
 ---
 
-*This page will automatically be generated from the codebase*
+# Installation Guide for Open Lovable
+
+Welcome to the Installation Guide for Open Lovable. This section provides clear and actionable instructions to help you clone the Open Lovable repository and prepare your development environment on any platform. Whether you are getting started for the first time or revisiting setup, these steps will get you running in minutes.
+
+---
+
+## 1. Prerequisites & System Preparation
+
+Before starting installation, ensure your environment meets the following prerequisites:
+
+- **Operating System:** Compatible with Windows, macOS, or Linux.
+- **Node.js & npm:** Install [Node.js (version 18.x or above recommended)](https://nodejs.org/en/download/) which includes npm.
+- **E2B API Key:** Obtain an API key for E2B sandbox orchestration from your Open Lovable account or administrator.
+- **Git:** Ensure Git is installed and accessible from the command line.
+
+### Network & Permissions
+
+- Allow outbound internet access for npm package installs.
+- Ensure ports `5173` (default Vite dev server port) and related sandbox ports are not blocked.
+
+<Tip>
+If you do not have an E2B API key, contact your system administrator or visit the Open Lovable signup page to request access.
+</Tip>
+
+---
+
+## 2. Clone the Open Lovable Repository
+
+To get code ready locally, clone the official GitHub repository.
+
+```bash
+# Clone the repo
+$ git clone https://github.com/mendableai/open-lovable.git
+
+# Navigate into the directory
+$ cd open-lovable
+```
+
+<Tip>
+You can fork the repository if you plan to extend or customize beyond core features.
+</Tip>
+
+---
+
+## 3. Install Dependencies
+
+Open Lovable uses Node.js with npm to manage dependencies.
+
+### Step-by-step Installation
+
+```bash
+# Install npm packages
+$ npm install
+```
+
+Expected output:
+- Completion message without errors
+- `node_modules` folder created
+
+<Tip>
+If you see any warnings about peer dependencies, you can generally ignore them unless installation fails.
+</Tip>
+
+---
+
+## 4. Environment Configuration
+
+### Set Required API Keys
+
+Open Lovable depends on external AI providers and the E2B sandbox environment.
+
+Create a `.env.local` file in the project root with these entries:
+
+```bash
+E2B_API_KEY=your-e2b-api-key
+OPENAI_API_KEY=your-openai-api-key
+GROQ_API_KEY=your-groq-api-key
+ANTHROPIC_API_KEY=your-anthropic-api-key
+ANTHROPIC_BASE_URL=https://api.anthropic.com/v1 # Optional
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+<Tip>
+Ensure your API keys have sufficient permissions for code generation and sandbox orchestration.
+If you do not use some AI providers, you can omit their keys but keep E2B_API_KEY.
+</Tip>
+
+---
+
+## 5. Running Your First Sandbox
+
+Open Lovable automatically provisions an E2B sandbox running a Vite React app with Tailwind CSS.
+
+From within the repository directory, start the Next.js development server:
+
+```bash
+# Start Next.js app
+$ npm run dev
+```
+
+This will:
+- Launch Open Lovable's UI on `http://localhost:3000`
+- Initialize the sandbox environment with the Vite React template
+
+<Tip>
+The sandbox uses default Vite port `5173` inside the environment, proxied automatically.
+</Tip>
+
+---
+
+## 6. Verify Installation
+
+After starting the app, verify by following these steps:
+
+1. Open your browser and navigate to `http://localhost:3000`.
+2. The home screen will appear where you can create or clone a sandbox.
+3. A basic React app is initialized in the sandbox with Tailwind CSS preset.
+4. Use the interface to enter commands or prompts and watch live updates.
+
+<Tip>
+Use the built-in preview iframe to view your live React app served by the sandbox.
+</Tip>
+
+---
+
+## 7. Common Troubleshooting
+
+<AccordionGroup title="Common Issues and Solutions">
+<Accordion title="npm install Fails or Hangs">
+- Ensure you have internet connectivity.
+- Clear npm cache: `npm cache clean --force`
+- Delete `node_modules` and `package-lock.json` and retry.
+- Check Node.js version compatibility.
+</Accordion>
+<Accordion title="Sandbox Does Not Start or Display Correctly">
+- Confirm your E2B API key is set correctly in `.env.local`.
+- Restart the Next.js server.
+- Look for errors in the terminal related to sandbox creation.
+- Run `npm run dev` again to reset state.
+</Accordion>
+<Accordion title="Ports Are In Use or Blocked">
+- Verify ports 3000 and 5173 are free.
+- Change port by setting environment variables or terminating conflicting processes.
+- Firewall may block these ports — configure firewall rules accordingly.
+</Accordion>
+<Accordion title="Missing or Failing Packages in Sandbox">
+- Use chat command 'check packages' or 'npm install' to trigger package detection and installation.
+- See console logs for specific missing packages.
+- Use the UI feedback messages during package installation.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## 8. Next Steps
+
+- Proceed to the **Getting Started Workflows** guides: Creating and Managing AI Sandboxes, Generating React App Code with AI, Applying AI-Suggested Code.
+- Explore **Package Management Automation** for efficient dependency handling.
+- Learn about **Cloning Websites and Importing External Code** for fast app bootstrapping.
+
+<Note>
+For detailed environment variables and advanced configuration, see the [Environment Configuration](https://github.com/mendableai/open-lovable/wiki/Environment-Configuration) guide.
+</Note>
+
+---
+
+Thank you for choosing Open Lovable. Your developer journey starts here!
+
+---
+
+# Quick Reference: Key Commands
+
+| Command                     | Description                          |
+|-----------------------------|------------------------------------|
+| `git clone ...`             | Clone the repository                |
+| `npm install`               | Install dependencies                |
+| `npm run dev`               | Start Open Lovable and sandbox UI  |
+| Set `.env.local` variables  | Configure API keys and env settings|
+
+---
