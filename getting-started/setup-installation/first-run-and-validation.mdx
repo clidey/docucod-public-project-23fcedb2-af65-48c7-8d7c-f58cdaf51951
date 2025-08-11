@@ -3,4 +3,157 @@ title: "First Run & Product Validation"
 description: "Start Open Lovable, access the local app, and verify that it's working as expected. This step-by-step walkthrough helps users perform the initial launch, validating both installation and configuration so they can confidently move into real use."
 ---
 
-*This page will automatically be generated from the codebase*
+# First Run & Product Validation
+
+Welcome to the first step in your Open Lovable journey! This guide will walk you through starting Open Lovable, accessing the local app environment, and verifying that everything is working correctly. By following these actionable steps, you will quickly validate your installation and configuration, setting a solid foundation for your React app development powered by AI.
+
+---
+
+## 1. Initial Launch: Accessing Open Lovable
+
+Open Lovable runs a local sandboxed React app environment served via a Vite development server inside an AI-powered sandbox. To start:
+
+<Steps>
+<Step title="Start the Local App">
+Ensure you have completed the initial installation and environment setup (see the installation instructions). Then launch the Open Lovable app using your preferred method (e.g., `npm run dev`).
+
+The app will open a web interface where you interact with the AI sandbox.
+</Step>
+
+<Step title="Observe the Home Screen Overlay">
+Upon first visit or refresh, you will see a clean Home Screen overlay with a branding header and an input field to enter a website URL.
+
+- This interface invites you to "Re-imagine any website, in seconds." 
+- Enter a URL of a website you want to clone or generate a React app for.
+</Step>
+
+<Step title="Sandbox Creation & Initialization">
+After providing a URL and submitting, Open Lovable automatically creates a new sandbox in the background.
+
+- The sandbox is a fully configured environment with React, Vite, and Tailwind CSS ready.
+- You will see status updates indicating sandbox creation progress.
+- A preview screenshot of the target site is captured asynchronously.
+</Step>
+</Steps>
+
+---
+
+## 2. Verifying Sandbox Status
+
+The app continuously monitors the sandbox’s health to ensure availability.
+
+- When the sandbox is active and healthy, a status indicator labeled **Sandbox active** will be shown with a green dot.
+- If the sandbox exists but is unresponsive, the status will indicate **Sandbox not responding**.
+- If no sandbox exists, status shows **No sandbox**.
+
+### How To Check Manually:
+
+You can manually check sandbox status via the UI status panel or by triggering a sandbox status check API.
+
+---
+
+## 3. Using the AI Chat to Trigger Generation and Validate Functionality
+
+The core way to operate Open Lovable after launch is through the conversational AI chat interface.
+
+- Type in commands, URLs, or code generation requests.
+- The app will generate React component code, apply it to the sandbox, and show live previews.
+
+### Typical First Operation:
+
+1. In the chat input, enter a website URL or a prompt like `clone https://example.com`. 
+2. The system will scrape the URL, analyze the content, and generate React code streams.
+3. Generated files appear stepwise in the code explorer sidebar.
+4. The preview pane updates with the live rendered React app.
+
+### Tips for Smooth Experience:
+
+- The sandbox auto-installs npm packages detected in the generated code (e.g., react-router-dom).
+- You can manually trigger package installation by typing commands like `npm install` or `check packages` in the chat.
+- Use the **Create new sandbox** button anytime to reset the environment.
+- A **Re-apply last generation** button allows you to re-apply the previously generated code without re-cloning.
+
+---
+
+## 4. Interacting with the Sandbox Preview
+
+Once the sandbox is running:
+
+- The preview panel shows your React app inside an iframe.
+- Use the refresh button to reload the sandbox content manually.
+- Open your app in a new browser tab with the external link button.
+
+This live preview reflects the applied code in near real-time, enabling rapid development iterations.
+
+---
+
+## 5. Validation & Troubleshooting
+
+### Indicators of a Successful First Run:
+
+- Sandbox status displays **Sandbox active** with a green dot.
+- Home screen transitions smoothly to the generation/preview UI.
+- Your initial chat command triggers AI code generation with streamed file updates.
+- Preview iframe loads your React application, showing visible and styled content.
+- Package installation completes without errors.
+
+### Common Pitfalls & How to Address Them:
+
+- **Sandbox fails to create:** Check API key configuration (E2B_API_KEY) and network connectivity.
+- **Preview iframe does not load:** Confirm sandbox is active and URL is correct; use the manual refresh button.
+- **Package installation errors:** Review chat logs for errors; try sending `npm install` command explicitly.
+- **Chat does not respond or errors:** Refresh the app page, check console logs, and verify environment variables.
+
+### Useful Debug Actions:
+
+- Use the **Create new sandbox** button to reset and start fresh.
+- Monitor chat messages for system feedback and errors.
+- Check browser developer console for network or runtime errors.
+
+---
+
+## 6. Next Steps
+
+With your sandbox validated and working:
+
+- Proceed to generate React app components via conversational AI prompts.
+- Explore guides on sandbox management and AI code generation.
+- Learn about applying AI changes and automated package management.
+
+---
+
+## Appendix
+
+### Summary of Controls and UI Elements
+
+| Element                       | Purpose                                        |
+|------------------------------|------------------------------------------------|
+| Home Screen URL input         | Enter website URL to clone/generate app        |
+| Style Selector (optional)    | Choose UI theme style for generated app        |
+| AI Chat Input                | Send commands, prompts, and code requests       |
+| Create new sandbox button    | Reset and create a fresh sandbox environment    |
+| Re-apply last generation button | Apply previous AI-generated code again        |
+| Download ZIP button          | Export the current sandbox app as a ZIP file    |
+| Preview iframe refresh button | Reload sandbox app preview manually             |
+| Model selector dropdown      | Choose AI model for code generation              |
+| Status indicator             | Shows current sandbox health and connection     |
+
+### Best Practices
+
+- Always wait for sandbox status to show active before running commands.
+- Read system chat messages carefully to catch installation or build warnings early.
+- Use the preview panel to verify if generated UI matches expectations.
+- Trigger package checks when imports change substantially.
+
+### Links to Related Documentation
+
+- [Installation Instructions](https://github.com/mendableai/open-lovable#getting-started-setup-installation)
+- [Creating and Managing a New AI Sandbox](#)
+- [Generating React App Code with AI](#)
+- [Applying AI-Suggested Code to Your Sandbox](#)
+- [Automated Package Detection and Installation](#)
+- [Common Setup Issues Troubleshooting](#)
+
+---
+
+By completing these steps, you ensure your Open Lovable environment is ready for your AI-driven React app development experience. Enjoy building with confidence!
