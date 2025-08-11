@@ -3,4 +3,206 @@ title: "Cloning Websites and Importing External Code"
 description: "Step-by-step instructions for using Open Lovable to scrape a URL, import existing React apps, or clone public sites into your sandbox for editing. Covers web scraping integrations, supported scenarios, and limitations."
 ---
 
-*This page will automatically be generated from the codebase*
+# Cloning Websites and Importing External Code
+
+## Overview
+
+This guide walks you through using Open Lovable to clone websites or import existing React applications into your AI sandbox. You will learn how to scrape public websites using integrated web scraping services, import code from React apps, and transform these inputs into editable, runnable projects within your sandbox environment. It covers supported scenarios, practical steps, key limitations, and tips for successful cloning and importing.
+
+---
+
+## What You Will Achieve
+
+By following this guide, you will:
+- Successfully scrape a URL's content and metadata for code generation
+- Import or clone React apps and public sites directly into your sandbox
+- Understand how Open Lovable uses scraped data and AI to generate components
+- Learn how to manage sandbox creation and monitor progress for website cloning
+- Get practical tips to ensure smooth imports and edit workflows with the cloned projects
+
+---
+
+## Prerequisites
+
+Before starting, ensure:
+- You have Open Lovable installed and running locally or on a supported environment
+- Your environment variables include:
+  - `FIRECRAWL_API_KEY` for website scraping
+  - AI provider keys (Anthropic, OpenAI, or Groq) set up
+  - `E2B_API_KEY` for sandbox orchestration
+- You have a working sandbox created or are prepared to create a new sandbox through Open Lovable
+- You understand basic React application structure and common web development patterns
+
+---
+
+## Step-by-Step Instructions
+
+### 1. Initiate Website Clone or Import
+
+**Action:**
+- Enter the full URL you want to clone or import in the input field on the home screen or relevant section.
+- Optionally, provide additional context or requirements to influence the generated design or style.
+- Select a desired visual style or theme to apply to the cloned site (e.g., Dark Mode, Modern).
+- Submit your request by pressing Enter or clicking the clone button.
+
+**Expected result:**
+- The app starts scraping the URL content immediately.
+- A screenshot of the website is captured and displayed for a quick visual preview.
+
+### 2. Website Scraping Process
+
+**What happens:**
+- Open Lovable uses the Firecrawl API to scrape the website content, including markdown, HTML, metadata, and relevant text.
+- The response is sanitized to remove problematic characters, ensuring clean input for AI.
+
+**User tip:**
+- Wait for the "Website scraped successfully!" confirmation.
+- A progress status is displayed showing "Gathering website information...".
+
+### 3. Sandbox Creation & Setup
+
+**If no active sandbox exists:**
+- Open Lovable automatically creates a new sandbox environment.
+- The sandbox provides a Vite React app with Tailwind CSS preconfigured.
+- Progress status updates include "Creating sandbox..." and "Sandbox active".
+
+**Best practice:**
+- Avoid interrupting this process. It typically takes a few seconds.
+- Sandbox creation includes installing dependencies and starting the Vite dev server.
+
+### 4. React App Generation from Scraped Content
+
+**Core workflow:**
+- The scraped content, including the site screenshot and metadata, becomes input for the AI prompt.
+- AI generates a complete React app structure including App.jsx and components like Header, Hero, Features, and Footer.
+- Tailwind CSS utility classes are used exclusively for styling to maintain consistency.
+
+**Expected user feedback:**
+- Status messages like "Initializing AI...", "Analyzing and generating React recreation...", and "Generating code..."
+- Live streaming of generated code files with file explorer updates.
+- Completion message like "AI recreation generated!" and a summary of generated files.
+
+### 5. Applying Generated Code to Sandbox
+
+**How it works:**
+- Open Lovable parses the streamed AI response, detecting packages to install and files to create or update.
+- Packages are installed automatically with real-time logs shown.
+- Files are written into the sandbox with progress indicators.
+- Post-install commands are executed, such as starting the dev server.
+- The sandbox iframe preview updates to reflect the imported code live.
+
+**User action:**
+- Watch the progress and check for success messages.
+- If package errors occur, ask the AI chat to "install missing packages" or run a manual prompt.
+
+### 6. Interacting With the Cloned Project
+
+**Next steps:**
+- Use the AI chat to modify, improve, or add new features to the cloned project.
+- Navigate the file explorer panel to review generated files.
+- Preview live updates through the sandbox iframe.
+
+---
+
+## Supported Scenarios
+
+- **Full Website Cloning:** Public website URLs with HTML and markdown content.
+- **React Project Import:** Existing React apps can be imported by scraping or copy-pasting code to the chat.
+- **Partial Website Import:** Specific URLs or subdomains, assuming publicly accessible.
+
+**Note:**
+- The workflow supports single-page applications; react-router or complex routing must be explicitly requested.
+- Only Tailwind CSS classes are used; custom CSS files are not imported.
+
+---
+
+## Limitations and Known Constraints
+
+- Scraping depends on Firecrawl API and its rate limits or availability.
+- Websites with heavy client-side rendering or login walls may not scrape correctly.
+- Current cloning includes static content and images but does not replicate server-side logic or APIs.
+- Package detection is limited to imports found in generated files; manual package management may sometimes be necessary.
+- Sandbox timeout defaults to 10 minutes unless extended.
+
+---
+
+## Troubleshooting
+
+<AccordionGroup title="Common Issues and Fixes">
+<Accordion title="Scraping Fails or Times Out">
+- Verify that the URL is correct and publicly accessible.
+- Ensure `FIRECRAWL_API_KEY` is set and has quota.
+- Retry after some time if Firecrawl API rate limits apply.
+</Accordion>
+
+<Accordion title="Sandbox Creation Errors">
+- Check `E2B_API_KEY` validity.
+- Ensure no conflicting sandbox instances running.
+- Review logs for Vite server startup errors.
+</Accordion>
+
+<Accordion title="Generated Code Has Missing Packages or Errors">
+- Use the AI chat command "check packages" to trigger automated installation.
+- Review generated logs for specific failing packages.
+- Manually add packages if needed by editing package.json or via AI chat.
+</Accordion>
+
+<Accordion title="Iframe Does Not Update After Code Application">
+- Use the refresh button near the iframe to force reload.
+- Check browser console for CORS or network errors.
+- Restart sandbox or Vite server if necessary.
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Best Practices
+
+- Start with a fresh sandbox or clear existing sandbox to avoid stale state.
+- Provide clear additional context or styling instructions when cloning websites to guide AI.
+- Review generated files early to correct any inconsistencies.
+- Use AI chat incrementally to make surgical edits instead of large regenerations.
+- Keep project files minimal and organized for best AI code generation results.
+
+---
+
+## Examples
+
+### Cloning a Corporate Website
+
+1. Enter URL: `https://example.com`
+2. Select "Dark Mode" style
+3. Add extra context: "Use modern, minimal typography and blue accent colors"
+4. Submit and observe progress.
+5. Upon completion, review `Header.jsx`, `Hero.jsx`, and `Footer.jsx`.
+
+### Importing a React Open Source App
+
+1. Provide GitHub URL or paste key component files in AI chat.
+2. Ask AI to import and scaffold the app in the sandbox.
+3. Ensure package dependencies are installed by running "check packages".
+4. Preview live app and make incremental changes.
+
+---
+
+## What’s Next
+
+- Learn how to create and manage new AI sandboxes: [Creating and Managing a New AI Sandbox](../getting-started-workflows/initialize-ai-sandbox)
+- Get familiar with AI prompt optimization to improve code generation: [Getting the Most from AI Prompts and Edits](../best-practices-troubleshooting/optimizing-ai-prompts)
+- Automate dependency management further with: [Automated Package Detection and Installation](../advanced-usage-integration/package-management-automation)
+
+---
+
+## Resources
+
+- [API to Scrape URLs with Firecrawl](../api/scrape-url-enhanced/route.ts)
+- [Sandbox creation and setup details](../api/create-ai-sandbox/route.ts)
+- [Applying AI code to sandbox](../api/apply-ai-code-stream/route.ts)
+- Official Open Lovable GitHub repository: [https://github.com/mendableai/open-lovable](https://github.com/mendableai/open-lovable)
+
+---
+
+## Summary
+This instructional guide covers how to clone websites or import existing React apps by scraping target URLs, generating React code with AI, and applying it into Open Lovable’s sandbox environment. It details the key steps, expected results, supported scenarios, and common troubleshooting advice, empowering you to quickly bootstrap and edit React projects sourced from live sites or codebases.
+
+---
